@@ -1,0 +1,8 @@
+[build]
+  base = ""
+  publish = "frontend/build"
+  command = "cd frontend && npm run build"
+
+[dev]
+  command = "cd frontend && npm start"
+  port = 3000
