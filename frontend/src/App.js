@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate,
   Outlet,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";

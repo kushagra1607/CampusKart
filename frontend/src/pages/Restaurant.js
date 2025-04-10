@@ -12,7 +12,6 @@ function Restaurant() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { user } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
-  const [userOrders, setUserOrders] = useState([]);
   const [specialInstructions, setSpecialInstructions] = useState("");
 
   const categories = [
@@ -102,21 +101,6 @@ function Restaurant() {
         setSuccess("Order placed successfully!");
         setCart([]);
         setSpecialInstructions("");
-        // Refresh orders
-        const fetchOrders = async () => {
-          try {
-            const ordersResponse = await axios.get(
-              "http://localhost:5000/api/restaurant/orders",
-              {
-                headers: { Authorization: `Bearer ${user.token}` },
-              }
-            );
-            setUserOrders(ordersResponse.data || []);
-          } catch (err) {
-            console.error("Error fetching orders:", err);
-          }
-        };
-        fetchOrders();
       }
     } catch (err) {
       console.error("Order error:", err);
