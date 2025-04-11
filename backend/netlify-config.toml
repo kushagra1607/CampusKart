@@ -1,6 +1,0 @@
-[build]
-command = "npm install"
-
-[build.environment]
-MONGODB_URI = "mongodb+srv://your-username:your-password@your-cluster.mongodb.net/campuskart?retryWrites=true&w=majority"
-JWT_SECRET = "your-secret-key"
