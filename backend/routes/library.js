@@ -6,8 +6,15 @@ const { auth } = require("../middleware/auth");
 // Get all books
 router.get("/books", async (req, res) => {
   try {
-    const books = await Book.find();
-    res.json(books);
+    const { category } = req.query;
+    
+    if (category) {
+      const books = await Book.find({ category });
+      res.json(books);
+    } else {
+      const books = await Book.find();
+      res.json(books);
+    }
   } catch (err) {
     console.error("Error fetching books:", err);
     res.status(500).json({ message: "Server error" });
@@ -23,18 +30,6 @@ router.get("/issues", auth, async (req, res) => {
     res.json(issues);
   } catch (err) {
     console.error("Error fetching user's book issues:", err);
-    res.status(500).json({ message: "Server error" });
-  }
-});
-
-// Get books by category
-router.get("/books/:category", async (req, res) => {
-  try {
-    const { category } = req.params;
-    const books = await Book.find({ category });
-    res.json(books);
-  } catch (err) {
-    console.error("Error fetching books by category:", err);
     res.status(500).json({ message: "Server error" });
   }
 });

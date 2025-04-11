@@ -23,10 +23,6 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  availability: {
-    type: Boolean,
-    default: true,
-  },
   location: {
     type: String,
     required: true,
