@@ -310,7 +310,10 @@ function Library() {
                                 : "bg-blue-100 text-blue-800"
                             }`}
                           >
-                            {book.category.charAt(0).toUpperCase() + book.category.slice(1)}
+                            {book.category && 
+                              book.category.charAt(0).toUpperCase() + 
+                              book.category.slice(1) || 
+                              "Unknown Category"}
                           </span>
                           {book.genre && (
                             <span
@@ -434,7 +437,10 @@ function Library() {
                                 : "bg-blue-100 text-blue-800"
                             }`}
                           >
-                            {issue.book.category.charAt(0).toUpperCase() + issue.book.category.slice(1)}
+                            {issue.book.category && 
+                              issue.book.category.charAt(0).toUpperCase() + 
+                              issue.book.category.slice(1) || 
+                              "Unknown Category"}
                           </span>
                           {issue.book.genre && (
                             <span
