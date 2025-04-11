@@ -1,7 +1,7 @@
 [build]
+  command = "npm run build"
   base = "frontend"
   publish = "build"
-  command = "npm install && npm run build"
 
 [dev]
   command = "npm start"
@@ -9,11 +9,26 @@
 
 [build.environment]
   NODE_VERSION = "18"
-  REACT_APP_API_URL = "https://campuskart-backend.herokuapp.com"  # This will be updated when we deploy the backend
+  REACT_APP_API_URL = "https://campuskart-backend.netlify.app"
 
 [context.production]
   command = "npm install && npm run build"
 
 [context.production.environment]
   NODE_VERSION = "18"
-  REACT_APP_API_URL = "https://campuskart-backend.herokuapp.com"
+  REACT_APP_API_URL = "https://campuskart-backend.netlify.app"
+
+[functions]
+  api = {
+    handler = "backend/server.js",
+    build = "npm install",
+    environment = {
+      MONGODB_URI = "mongodb+srv://your-username:your-password@your-cluster.mongodb.net/campuskart?retryWrites=true&w=majority",
+      JWT_SECRET = "your-secret-key"
+    }
+  }
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
