@@ -74,6 +74,36 @@ function Home() {
           </Link>
         ))}
       </div>
+
+      <div className="mt-12">
+        <h2 className={`text-2xl font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`}>
+          Contact Information
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className={`p-6 rounded-lg ${darkMode ? "bg-gray-800" : "bg-white"} border ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
+            <h3 className={`text-xl font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>Keshav</h3>
+            <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+              <span className="font-semibold">Mobile:</span> 9351430173<br />
+              <span className="font-semibold">Email:</span> kumarkeshav0801@gmail.com
+            </p>
+          </div>
+          <div className={`p-6 rounded-lg ${darkMode ? "bg-gray-800" : "bg-white"} border ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
+            <h3 className={`text-xl font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>Kushagra</h3>
+            <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+              <span className="font-semibold">Mobile:</span> 9576750084<br />
+              <span className="font-semibold">Email:</span> kushagra832005@gmail.com<br />
+              <span className="font-semibold">Instagram:</span> kushagra073
+            </p>
+          </div>
+          <div className={`p-6 rounded-lg ${darkMode ? "bg-gray-800" : "bg-white"} border ${darkMode ? "border-gray-700" : "border-gray-200"}`}>
+            <h3 className={`text-xl font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>Kshitiz</h3>
+            <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+              <span className="font-semibold">Mobile:</span> 7979764373<br />
+              <span className="font-semibold">Email:</span> kshitizthakur254@gmail.com
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
