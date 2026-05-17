@@ -55,12 +55,13 @@ function Home() {
   const teamMembers = [
     {
       name: "Kushagra",
+      initials: "K",
       mobile: "9576750084",
       email: "kushagra832005@gmail.com",
       instagram: "kushagra073",
-      color: "from-purple-500 to-purple-600",
-      icon: "💻",
-      role: "Lead Developer"
+      github: "kushagra1607",
+      roles: ["Lead Developer", "Full Stack Developer", "Project Manager", "UI/UX Designer"],
+      color: "from-purple-500 to-indigo-600",
     }
   ];
 
@@ -107,80 +108,79 @@ function Home() {
         ))}
       </div>
 
-      <div className="mt-12">
-        <h2 className={`text-4xl font-bold mb-8 ${darkMode ? "text-white" : "text-gray-900"} text-center`}>
-          Meet Our Team
+      <div className="mt-16">
+        <h2 className={`text-4xl font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"} text-center`}>
+          Contact
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <p className={`text-center mb-10 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+          Get in touch with the developer
+        </p>
+        <div className="flex justify-center">
           {teamMembers.map((member, index) => (
             <div
               key={member.name}
-              className={`relative p-6 rounded-2xl border transition-all duration-500 transform hover:scale-105 hover:shadow-xl ${
-                darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
+              className={`w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 transform hover:scale-105 hover:shadow-purple-500/20 ${
+                darkMode ? "bg-gray-800" : "bg-white"
               }`}
-              style={{
-                animation: `fade-in ${index + 1}s ease-out forwards`,
-              }}
+              style={{ animation: `fade-in ${index + 1}s ease-out forwards` }}
             >
-              <div className={`absolute -top-8 left-1/2 transform -translate-x-1/2 w-16 h-16 rounded-full ${
-                darkMode ? "bg-gray-700" : "bg-white"
-              } flex items-center justify-center`}>
-                <span className={`text-4xl ${darkMode ? "text-white" : "text-gray-900"} font-bold`}>
-                  {member.icon}
-                </span>
+              {/* Gradient header with avatar */}
+              <div className={`bg-gradient-to-r ${member.color} p-8 flex flex-col items-center`}>
+                <div className="w-20 h-20 rounded-full bg-white/20 border-4 border-white/40 flex items-center justify-center mb-3">
+                  <span className="text-3xl font-bold text-white">{member.initials}</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white">{member.name}</h3>
               </div>
-              <h3 className={`text-2xl font-bold mb-2 mt-8 ${darkMode ? "text-white" : "text-gray-900"}`}>
-                {member.name}
-              </h3>
-              <p className={`text-lg font-medium mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                {member.role}
-              </p>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <span className={`text-xl ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                    📱
+
+              {/* Roles */}
+              <div className="px-6 py-4 flex flex-wrap gap-2 justify-center border-b border-gray-200 dark:border-gray-700">
+                {member.roles.map((role) => (
+                  <span
+                    key={role}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      darkMode
+                        ? "bg-purple-900/50 text-purple-300 border border-purple-700"
+                        : "bg-purple-50 text-purple-700 border border-purple-200"
+                    }`}
+                  >
+                    {role}
                   </span>
-                  <div className="ml-2">
-                    <span className={`block text-sm font-medium ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                      Mobile No.
-                    </span>
-                    <span className={`block ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                      {member.mobile}
-                    </span>
+                ))}
+              </div>
+
+              {/* Contact info */}
+              <div className="px-6 py-4 space-y-3">
+                <a href={`tel:${member.mobile}`} className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}>
+                  <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">📱</div>
+                  <div>
+                    <p className={`text-xs font-medium ${darkMode ? "text-gray-400" : "text-gray-400"}`}>Mobile</p>
+                    <p className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>{member.mobile}</p>
                   </div>
-                </div>
-                <div className="flex items-center">
-                  <span className={`text-xl ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                    📧
-                  </span>
-                  <div className="ml-2">
-                    <span className={`block text-sm font-medium ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                      Email
-                    </span>
-                    <span className={`block ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                      {member.email}
-                    </span>
+                </a>
+                <a href={`mailto:${member.email}`} className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}>
+                  <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center text-red-600 flex-shrink-0">📧</div>
+                  <div>
+                    <p className={`text-xs font-medium ${darkMode ? "text-gray-400" : "text-gray-400"}`}>Email</p>
+                    <p className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>{member.email}</p>
                   </div>
-                </div>
+                </a>
                 {member.instagram && (
-                  <div className="flex items-center">
-                    <span className={`text-xl ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                      📸
-                    </span>
-                    <div className="ml-2">
-                      <span className={`block text-sm font-medium ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-                        Instagram ID
-                      </span>
-                      <a
-                        href={`https://instagram.com/${member.instagram}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`block ${darkMode ? "text-purple-400" : "text-purple-600"} hover:text-purple-500 transition-colors`}
-                      >
-                        {member.instagram}
-                      </a>
+                  <a href={`https://instagram.com/${member.instagram}`} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}>
+                    <div className="w-9 h-9 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 flex-shrink-0">📸</div>
+                    <div>
+                      <p className={`text-xs font-medium ${darkMode ? "text-gray-400" : "text-gray-400"}`}>Instagram</p>
+                      <p className={`font-medium ${darkMode ? "text-purple-400" : "text-purple-600"}`}>@{member.instagram}</p>
                     </div>
-                  </div>
+                  </a>
+                )}
+                {member.github && (
+                  <a href={`https://github.com/${member.github}`} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-3 p-3 rounded-xl transition-colors ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-50"}`}>
+                    <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${darkMode ? "bg-gray-700 text-white" : "bg-gray-100 text-gray-800"}`}>🐙</div>
+                    <div>
+                      <p className={`text-xs font-medium ${darkMode ? "text-gray-400" : "text-gray-400"}`}>GitHub</p>
+                      <p className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>{member.github}</p>
+                    </div>
+                  </a>
                 )}
               </div>
             </div>
