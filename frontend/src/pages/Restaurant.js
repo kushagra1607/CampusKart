@@ -12,6 +12,7 @@ function Restaurant() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { user } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
+  const [userOrders, setUserOrders] = useState([]);
   const [specialInstructions, setSpecialInstructions] = useState("");
 
   const categories = [
@@ -27,7 +28,7 @@ function Restaurant() {
     const fetchMenu = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/restaurant/menu"
+          "/api/restaurant/menu"
         );
         setMenu(response.data);
         setLoading(false);
@@ -83,7 +84,7 @@ function Restaurant() {
       const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
       const response = await axios.post(
-        "http://localhost:5000/api/restaurant/order",
+        "/api/restaurant/order",
         {
           items: orderItems,
           totalPrice,
@@ -101,6 +102,21 @@ function Restaurant() {
         setSuccess("Order placed successfully!");
         setCart([]);
         setSpecialInstructions("");
+        // Refresh orders
+        const fetchOrders = async () => {
+          try {
+            const ordersResponse = await axios.get(
+              "/api/restaurant/orders",
+              {
+                headers: { Authorization: `Bearer ${user.token}` },
+              }
+            );
+            setUserOrders(ordersResponse.data || []);
+          } catch (err) {
+            console.error("Error fetching orders:", err);
+          }
+        };
+        fetchOrders();
       }
     } catch (err) {
       console.error("Order error:", err);
@@ -234,7 +250,7 @@ function Restaurant() {
                 >
                   <div className="p-6">
                     <img
-                      src={`http://localhost:5000${item.image}`}
+                      src={`${item.image}`}
                       alt={item.name}
                       className="w-full h-48 object-cover rounded-lg mb-4"
                       onError={(e) => {

@@ -44,7 +44,7 @@ function Library() {
     const fetchBooks = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/library/books"
+          "/api/library/books"
         );
         setBooks(response.data || []);
         setLoading(false);
@@ -59,7 +59,7 @@ function Library() {
       if (user) {
         try {
           const response = await axios.get(
-            "http://localhost:5000/api/library/my-books",
+            "/api/library/my-books",
             {
               headers: { Authorization: `Bearer ${user.token}` },
             }
@@ -93,7 +93,7 @@ function Library() {
     try {
       setError("");
       const response = await axios.post(
-        "http://localhost:5000/api/library/issue",
+        "/api/library/issue",
         { bookId },
         {
           headers: {
@@ -107,8 +107,8 @@ function Library() {
         setSuccess("Book issued successfully!");
         // Refresh both available books and user's books
         const [booksResponse, userBooksResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/library/books"),
-          axios.get("http://localhost:5000/api/library/my-books", {
+          axios.get("/api/library/books"),
+          axios.get("/api/library/my-books", {
             headers: { Authorization: `Bearer ${user.token}` },
           }),
         ]);
@@ -134,7 +134,7 @@ function Library() {
     try {
       setError("");
       const response = await axios.delete(
-        `http://localhost:5000/api/library/issue/${bookId}`,
+        `/api/library/issue/${bookId}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -147,8 +147,8 @@ function Library() {
         setSuccess("Book returned successfully!");
         // Refresh both available books and user's books
         const [booksResponse, userBooksResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/library/books"),
-          axios.get("http://localhost:5000/api/library/my-books", {
+          axios.get("/api/library/books"),
+          axios.get("/api/library/my-books", {
             headers: { Authorization: `Bearer ${user.token}` },
           }),
         ]);

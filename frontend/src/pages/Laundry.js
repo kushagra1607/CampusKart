@@ -20,9 +20,9 @@ function Laundry() {
     const fetchData = async () => {
       try {
         const [itemsResponse, ordersResponse] = await Promise.all([
-          axios.get("http://localhost:5000/api/laundry/items"),
+          axios.get("/api/laundry/items"),
           user
-            ? axios.get("http://localhost:5000/api/laundry/orders", {
+            ? axios.get("/api/laundry/orders", {
                 headers: { Authorization: `Bearer ${user.token}` },
               })
             : Promise.resolve({ data: [] }),
@@ -100,7 +100,7 @@ function Laundry() {
       );
 
       const response = await axios.post(
-        "http://localhost:5000/api/laundry/order",
+        "/api/laundry/order",
         {
           items: orderItems,
           specialInstructions,
@@ -122,7 +122,7 @@ function Laundry() {
         const fetchOrders = async () => {
           try {
             const ordersResponse = await axios.get(
-              "http://localhost:5000/api/laundry/orders",
+              "/api/laundry/orders",
               {
                 headers: { Authorization: `Bearer ${user.token}` },
               }

@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["x-auth-token"] = token;
       // Fetch user data
       axios
-        .get("http://localhost:5000/api/auth/me")
+        .get("/api/auth/me")
         .then((res) => {
           setUser(res.data);
         })
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (mobile, password) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("/api/auth/login", {
         mobile,
         password,
       });
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["x-auth-token"] = token;
 
       // Fetch user data after successful login
-      const userRes = await axios.get("http://localhost:5000/api/auth/me");
+      const userRes = await axios.get("/api/auth/me");
       setUser(userRes.data);
 
       return { success: true };
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "/api/auth/register",
         userData
       );
       const { token } = res.data;
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
       axios.defaults.headers.common["x-auth-token"] = token;
 
       // Fetch user data after successful registration
-      const userRes = await axios.get("http://localhost:5000/api/auth/me");
+      const userRes = await axios.get("/api/auth/me");
       setUser(userRes.data);
 
       return { success: true };

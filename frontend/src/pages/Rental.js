@@ -26,7 +26,7 @@ function Rental() {
 
         // Fetch available items
         const itemsResponse = await axios.get(
-          "http://localhost:5000/api/rental/items"
+          "/api/rental/items"
         );
         if (itemsResponse.data && Array.isArray(itemsResponse.data)) {
           // Map the items to include availability based on the backend response
@@ -41,7 +41,7 @@ function Rental() {
         if (user) {
           try {
             const rentalsResponse = await axios.get(
-              "http://localhost:5000/api/rental/orders",
+              "/api/rental/orders",
               {
                 headers: { Authorization: `Bearer ${user.token}` },
               }
@@ -99,7 +99,7 @@ function Rental() {
       endDate.setDate(endDate.getDate() + duration);
       
       const response = await axios.post(
-        "http://localhost:5000/api/rental/rent",
+        "/api/rental/rent",
         {
           itemId: selectedItem._id,
           quantity: quantity,
@@ -133,7 +133,7 @@ function Rental() {
     try {
       // Fetch updated items
       const itemsResponse = await axios.get(
-        "http://localhost:5000/api/rental/items"
+        "/api/rental/items"
       );
       if (itemsResponse.data && Array.isArray(itemsResponse.data)) {
         const mappedItems = itemsResponse.data.map((item) => ({
@@ -146,7 +146,7 @@ function Rental() {
       // Fetch updated rentals if user is logged in
       if (user) {
         const rentalsResponse = await axios.get(
-          "http://localhost:5000/api/rental/orders",
+          "/api/rental/orders",
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }
@@ -169,7 +169,7 @@ function Rental() {
       setError("");
       // Using the correct endpoint from the backend
       const response = await axios.put(
-        `http://localhost:5000/api/rental/orders/${rentalId}/cancel`,
+        `/api/rental/orders/${rentalId}/cancel`,
         {},
         {
           headers: {
