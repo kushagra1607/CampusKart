@@ -10,6 +10,7 @@ function Library() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const { user } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
 
@@ -165,11 +166,22 @@ function Library() {
     }
   };
 
-  // Filter the books based on selected genre
-  const filteredBooks =
-    selectedGenre === "all"
-      ? books
-      : books.filter((book) => book.category === selectedGenre);
+  // Filter the books based on selected genre and search query
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredBooks = books.filter((book) => {
+    if (!book) {
+      return false;
+    }
+    const matchesGenre =
+      selectedGenre === "all" ? true : book.category === selectedGenre;
+    const title = (book.title || "").toLowerCase();
+    const author = (book.author || "").toLowerCase();
+    const matchesSearch =
+      normalizedQuery === ""
+        ? true
+        : title.includes(normalizedQuery) || author.includes(normalizedQuery);
+    return matchesGenre && matchesSearch;
+  });
 
   if (loading) {
     return (
@@ -210,6 +222,21 @@ function Library() {
         >
           Library
         </h1>
+
+        {/* Search */}
+        <div className="mb-6 flex justify-center">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by title or author..."
+            className={`w-full max-w-md px-4 py-2 rounded-full border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ${
+              darkMode
+                ? "bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+                : "bg-white border-gray-300 text-gray-800 placeholder-gray-500"
+            }`}
+          />
+        </div>
 
         {/* Category Filter */}
         <div className="mb-8">
@@ -325,6 +352,27 @@ function Library() {
                               {book.genre}
                             </span>
                           )}
+                          {book.availableAtIITP ? (
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                                darkMode
+                                  ? "bg-green-900 text-green-200"
+                                  : "bg-green-100 text-green-800"
+                              }`}
+                            >
+                              &#10003; Available at IIT Patna
+                            </span>
+                          ) : (
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                                darkMode
+                                  ? "bg-amber-900 text-amber-200"
+                                  : "bg-amber-100 text-amber-800"
+                              }`}
+                            >
+                              Not at IIT Patna &mdash; Read Online
+                            </span>
+                          )}
                           <div className="flex space-x-2">
                             {book.availableCopies > 0 ? (
                               <button
@@ -341,14 +389,16 @@ function Library() {
                                 Not Available
                               </button>
                             )}
-                            {book.ebookUrl && (
-                              <button
-                                onClick={() => window.open(book.ebookUrl, '_blank')}
+                            {book.ebookUrl ? (
+                              <a
+                                href={book.ebookUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="bg-gradient-to-r from-green-600 to-teal-600 text-white py-2 px-4 rounded-lg hover:from-green-700 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
                               >
                                 Read Online
-                              </button>
-                            )}
+                              </a>
+                            ) : null}
                           </div>
                         </div>
                       </div>

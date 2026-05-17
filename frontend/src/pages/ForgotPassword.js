@@ -80,7 +80,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       // Call your backend API to verify the code
-      const response = await axios.post("/api/auth/verify-code", {
+      await axios.post("/api/auth/verify-code", {
         mobile,
         verificationCode,
       });
@@ -108,7 +108,7 @@ const ForgotPassword = () => {
     setLoading(true);
     try {
       // Call your backend API to reset the password
-      const response = await axios.post("/api/auth/reset-password", {
+      await axios.post("/api/auth/reset-password", {
         mobile,
         verificationCode,
         newPassword,

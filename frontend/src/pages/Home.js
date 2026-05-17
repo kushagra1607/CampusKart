@@ -67,20 +67,46 @@ function Home() {
 
   return (
     <div className={`${darkMode ? "text-white" : "text-gray-800"}`}>
-      <div className="text-center mb-12">
-        <h1
-          className={`text-4xl font-bold mb-4 ${
+      {/* Hero */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -left-10 top-10 w-72 h-72 bg-white rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute right-0 bottom-0 w-72 h-72 bg-pink-300 rounded-full mix-blend-overlay filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center">
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
+            Everything your campus needs,
+            <br className="hidden sm:block" /> in one place
+          </h1>
+          <p className="text-lg sm:text-2xl text-blue-100 mb-10 max-w-2xl mx-auto">
+            Food, books, laundry and rentals for IIT Patna — fast, simple and
+            always available.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/restaurant"
+              className="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold shadow-lg hover:scale-105 transition-transform"
+            >
+              Order Food
+            </Link>
+            <Link
+              to="/library"
+              className="bg-blue-800/40 text-white border border-white/40 px-8 py-3 rounded-full font-semibold hover:bg-blue-800/60 transition-colors"
+            >
+              Browse Library
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2
+          className={`text-3xl font-bold mb-8 text-center ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
-          Welcome to CampusKart
-        </h1>
-        <p
-          className={`text-xl ${darkMode ? "text-gray-300" : "text-gray-600"}`}
-        >
-          Your one-stop solution for campus services
-        </p>
-      </div>
+          Our Services
+        </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service) => (
@@ -186,6 +212,7 @@ function Home() {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

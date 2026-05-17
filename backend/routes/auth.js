@@ -265,4 +265,71 @@ router.post("/reset-password", async (req, res) => {
   }
 });
 
+// Update current user's profile
+router.put("/profile", auth, async (req, res) => {
+  try {
+    const { name, hostel, roomNo } = req.body;
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // Update only the provided fields
+    if (name !== undefined) user.name = name;
+    if (hostel !== undefined) user.hostel = hostel;
+    if (roomNo !== undefined) user.roomNo = roomNo;
+
+    await user.save();
+
+    // Return the updated user without the password field
+    const updatedUser = await User.findById(req.user.id).select("-password");
+    res.json(updatedUser);
+  } catch (err) {
+    console.error("Update profile error:", err);
+    if (err.name === "ValidationError") {
+      return res.status(400).json({
+        message: "Validation error",
+        errors: Object.values(err.errors).map((e) => e.message),
+      });
+    }
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+// Change current user's password
+router.put("/change-password", auth, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    // Need the password field, so don't exclude it
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // Verify the current password
+    const isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Current password is incorrect" });
+    }
+
+    // Validate the new password length
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({
+        message: "New password must be at least 6 characters long",
+      });
+    }
+
+    // Set the new password (the User model's pre-save hook will hash it)
+    user.password = newPassword;
+    await user.save();
+
+    res.json({ message: "Password updated successfully" });
+  } catch (err) {
+    console.error("Change password error:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 module.exports = router;

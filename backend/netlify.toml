@@ -1,8 +1,12 @@
 [build]
-  base = "backend"
+  base = ""
   publish = "."
   command = "npm install"
 
 [dev]
   command = "npm run dev"
   port = 5000
+
+[build.environment]
+  NODE_VERSION = "18"
+  MONGODB_URI = "mongodb+srv://your-username:your-password@your-cluster.mongodb.net/campuskart?retryWrites=true&w=majority"  # Update with your MongoDB connection string

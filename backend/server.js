@@ -8,6 +8,7 @@ const rentalRoutes = require("./routes/rental");
 const laundryRoutes = require("./routes/laundry");
 const restaurantRoutes = require("./routes/restaurant");
 const libraryRoutes = require("./routes/library");
+const adminRoutes = require("./routes/admin");
 
 // Load environment variables
 dotenv.config();
@@ -59,6 +60,7 @@ app.use("/api/rental", rentalRoutes);
 app.use("/api/laundry", laundryRoutes);
 app.use("/api/restaurant", restaurantRoutes);
 app.use("/api/library", libraryRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

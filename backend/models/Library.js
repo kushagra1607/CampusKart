@@ -46,6 +46,10 @@ const bookSchema = new mongoose.Schema({
   genre: {
     type: String,
   },
+  availableAtIITP: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
