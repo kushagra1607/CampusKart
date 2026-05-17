@@ -18,8 +18,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the frontend public directory
-app.use('/images', express.static(path.resolve(__dirname, '../frontend/public/images')));
+// Serve static files from the frontend public directory (local dev only)
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/images', express.static(path.resolve(__dirname, '../frontend/public/images')));
+}
 
 // MongoDB Connection
 mongoose
@@ -52,3 +54,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;
