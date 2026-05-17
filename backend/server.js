@@ -23,14 +23,30 @@ if (process.env.NODE_ENV !== 'production') {
   app.use('/images', express.static(path.resolve(__dirname, '../frontend/public/images')));
 }
 
-// MongoDB Connection
-mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/campuskart", {
+// Cached MongoDB connection for Vercel serverless
+let isConnected = false;
+
+async function connectToDatabase() {
+  if (isConnected && mongoose.connection.readyState === 1) return;
+  await mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/campuskart", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
+    serverSelectionTimeoutMS: 10000,
+  });
+  isConnected = true;
+  console.log("MongoDB Connected");
+}
+
+// Ensure DB is connected before every request
+app.use(async (req, res, next) => {
+  try {
+    await connectToDatabase();
+    next();
+  } catch (err) {
+    console.error("MongoDB Connection Error:", err);
+    res.status(500).json({ message: "Database connection failed" });
+  }
+});
 
 // Test route
 app.get("/", (req, res) => {
