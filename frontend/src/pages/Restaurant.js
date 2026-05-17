@@ -12,7 +12,7 @@ function Restaurant() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { user } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
-  const [userOrders, setUserOrders] = useState([]);
+  const [, setUserOrders] = useState([]);
   const [specialInstructions, setSpecialInstructions] = useState("");
 
   const categories = [
